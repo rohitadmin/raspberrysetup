@@ -1,0 +1,108 @@
+Raspberry Pi headless setup
+
+If we do not have additional Monitor,keyboard,mouse,and usb camera then how we will start the raspberry pi? Its a big Question?
+but no need to worry here is the solution! solution is HEADLESS RASPBERRY MODE.
+But before that we need some list things given above:
+1. Any Raspberry pi Board
+2. Micro SD card and Reader
+3. Existing laptop or desktop computer
+4. Usb cable
+Now let's start the setup process.
+
+Download the list of software given below:
+
+1. Download Raspbian OS "https://www.raspberrypi.org/downloads/raspbian/" I have used Raspbian Buster with desktop and recommended software of Febrary 2020 which latest version
+
+2. Download Etcher from the below link "https://www.balena.io/etcher/" for flash SD card.
+
+3. Download VNC viewer "https://www.realvnc.com/en/connect/download/viewer/windows/"
+
+4. Download SD card formatter "https://www.sdcard.org/downloads/formatter/"
+
+Start Process for setup HEADLESS MODE.
+
+1. Now insert the SD card in to a laptop and format the card by SD Card Formatter as given image below.
+
+2. After formatting SD card install the raspbeian OS in to a SD card.
+
+    a. First Flash SD Card with the latest version of Raspbian using Etcher,the figure given below state steps of install Raspbeian OS in SD card.
+    b. After SD card flashed, insert it again into your laptop.
+    c. Now Open up the File Explorer and see SD card show up as a drive. Double click on it to open it to see the files that are on there. As shown below in figure.
+
+3. Now its time to create two files under SD card files.
+   
+   a. First create an empty file and just name it ssh. This file has no file extension. so Just save it by name "ssh" at the root top level, and this "ssh" file does not have to contain anything in it, it just has to be named ssh only. As given below in figure.
+
+   Note: Remember this file is created on the root level of the SD card (boot partition) when first double click on the drive.
+
+   b. Now Create another file called "wpa_supplicant.conf" and again save this on the root top level. as given below in figure. 
+   In this file, place the following contents.
+
+   c. Put the following in your wpa_supplicant.conf file:
+
+      ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+      update_config=1
+      country=IN
+      network={
+      ssid="your hotspot mobile device name"
+      psk="your wifi hotspot password"
+      }
+
+      // "IN" is  a country code for India, other country code   is given below in link "https://www.nationsonline.org/oneworld/country_code_list.htm"
+      
+    d. Now turn on the hotspot on phone so that we could get the SSID of the network it creates or we can also use wireless WIFI if know the SSID of the wireless network that want to connect to, use that. Also get the password you need to connect to your hotspot or the Wifi network. As given below in figure.
+
+    e. Now save the files and eject the SD card.
+
+4. Insert your SD card into the RPi by given figure below.
+
+5. Plug into a laptop by usb cable as shown in figure.
+
+6. It will start boot it up.
+
+   a. Now look on hotspot network on phone, see raspberry pi connected to your network. (Also able to see the IP address that was assigned to the Raspberry Pi on phone if look at the details, for viewing details of the Raspberry Pi IP address just install "WOM Wifi" on android phone.) in the given figure below.
+   Or if have access to the router of wireless network,should be able to see the IP address assigned to your Raspberry Pi.
+   (Given below link to see the router’s IP address and router password. "https://www.howtogeek.com/233952/how-to-find-your-routers-ip-address-on-any-computer-smartphone-or-tablet/","https://www.routerpasswords.com/")
+
+7. Now connect to the Raspberry Pi via SSH. 
+   Note: Ensure that your computer or laptop is connected to the same HOTSPOT on phone or the same wireless network.
+
+   a. Open the command line on Windows machine/windows powershell.
+
+   b. Type the below command "ssh pi@IP address of PI " and hit Enter. As given in figure below.
+
+   c. Now type in yes to accept the fingerprint if get a prompt. As given below in figure.
+
+   d. After that it will ask for the password, enter "raspberry" and hit Enter. Now it will be connected to Raspberry Pi. As given given below in figure.
+
+8. After that make Configuration Changes.
+   
+   a. First enable the VNC Server. for that type below command 
+      "sudo raspi-config". As shown below in figure.
+
+   b. Second navigate to the "Interfacing Options" and select VNC, It will ask for Would you like the VNC Server to be enabled? select Yes. As shown below in figures. 
+
+   c. Now select Boot to Desktop,
+      
+      c.1. Select "Boot Options"
+      c.2. Select "Desktop / CLI : Choose whether to boot into a desktop environment or the command line"
+      c.3. Select "Desktop Autologin Desktop GUI, automatically logged in as 'pi' user"
+      c.4. Select Ok, As shown below in figure.
+
+   d. After that set a Screen Resolution
+
+      d.1. Now from the main menu of Raspberry Pi Configuration screen select Advanced Options
+      d.2. Then select Resolution
+      d.3. Select the resolution for your desktop/laptop monitor select **1920x1080 or can select other resolution also as per requirement.
+      d.4. After that Select Ok
+
+   e. After that select Finish and Reboot for the changes to take effect.
+      As shown below in figure.  
+
+9. After that Install VNC Viewer on laptop computer, And open As shown below in figure to connect Raspberry PI with VNC viewer by entering logging username and password. Remember username is "pi" and password is "raspberry".
+
+10. Now Booom !!!!!!!! Welcome to Raspberry PI.
+
+
+
+   
